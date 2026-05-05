@@ -4,153 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zeeter Oliver | Official EPK</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg: #0a0a0a;
-            --bg-elevated: #111111;
-            --bg-card: #161616;
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255,255,255,0.7);
-            --text-muted: rgba(255,255,255,0.4);
+            --bg-card: #141414;
             --accent: #e63946;
-            --accent-light: #ff6b7a;
-            --border: rgba(255,255,255,0.08);
+            --text-main: #ffffff;
+            --text-dim: rgba(255,255,255,0.6);
+            --border: rgba(255,255,255,0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.6; }
 
-        /* FIX 1: BACKGROUND DEPTH */
-        .mesh-bg {
-            position: fixed;
-            inset: 0;
-            z-index: -1; /* Send to back */
-            background: var(--bg);
-            pointer-events: none;
-        }
-
-        .mesh-bg::before {
-            content: '';
-            position: absolute;
-            width: 800px; height: 800px;
-            background: radial-gradient(circle, rgba(230,57,70,0.12) 0%, transparent 70%);
-            top: -20%; right: -10%;
-            animation: meshFloat 15s ease-in-out infinite;
-        }
-
-        @keyframes meshFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(30px, -40px) scale(1.1); }
-        }
-
-        /* FIX 2: CONTENT VISIBILITY */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 8rem 5% 4rem;
-            position: relative;
-            z-index: 10; /* Bring to front */
-        }
-
-        .hero-content {
-            max-width: 800px;
-            opacity: 1 !important; /* Force visibility */
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(230,57,70,0.15);
-            border: 1px solid var(--accent);
-            border-radius: 50px;
-            color: var(--accent);
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            letter-spacing: 2px;
-        }
-
-        h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 0.95;
-            margin-bottom: 2rem;
-            letter-spacing: -3px;
-        }
-
-        .highlight { color: var(--accent); }
-
-        .btn-group { display: flex; gap: 1.5rem; margin-top: 3rem; }
-
-        .btn {
-            padding: 1.2rem 2.5rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .btn-primary { background: var(--accent); color: white; }
-        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(230,57,70,0.4); }
-
-        .btn-ghost { border: 1px solid var(--border); color: white; }
-        .btn-ghost:hover { background: rgba(255,255,255,0.05); }
-
+        /* NAVIGATION */
         nav {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 1.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            z-index: 1000;
-            background: rgba(10,10,10,0.8);
-            backdrop-filter: blur(20px);
+            position: fixed; top: 0; width: 100%; padding: 1.5rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(10,10,10,0.8); backdrop-filter: blur(15px); z-index: 1000;
             border-bottom: 1px solid var(--border);
         }
+        .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; }
+        .nav-logo span { color: var(--accent); }
 
-        .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.5rem; }
+        /* HERO SECTION */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding: 0 5%; text-align: center; justify-content: center; position: relative; }
+        .hero-content { max-width: 900px; z-index: 10; }
+        .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin-bottom: 1.5rem; letter-spacing: -3px; }
+        .hero p { color: var(--text-dim); font-size: 1.2rem; max-width: 600px; margin: 0 auto 2.5rem; }
+
+        /* STATS GRID */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin: 4rem 0; padding: 0 5%; }
+        .stat-card { background: var(--bg-card); padding: 2rem; border-radius: 16px; border: 1px solid var(--border); text-align: center; }
+        .stat-value { font-size: 2.5rem; font-weight: 700; color: var(--accent); font-family: 'Space Grotesk', sans-serif; }
+        .stat-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); }
+
+        /* MUSIC SECTION */
+        .section-padding { padding: 8rem 5%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .card { background: var(--bg-card); border-radius: 20px; overflow: hidden; border: 1px solid var(--border); transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .card-img { width: 100%; height: 300px; background: #222; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .card-content { padding: 2rem; }
+        
+        /* CONTACT FORM */
+        .contact-form { max-width: 600px; margin: 0 auto; background: var(--bg-card); padding: 3rem; border-radius: 24px; border: 1px solid var(--border); }
+        input, textarea, select { 
+            width: 100%; padding: 1rem; margin-bottom: 1.5rem; 
+            background: #000; border: 1px solid var(--border); color: #fff; border-radius: 8px;
+        }
+        .btn-submit { width: 100%; padding: 1rem; background: var(--accent); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+        /* UTILS */
+        .accent-text { color: var(--accent); }
+        .badge { background: rgba(230, 57, 70, 0.1); color: var(--accent); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.7rem; font-weight: 700; margin-bottom: 1rem; display: inline-block; }
     </style>
 </head>
 <body>
 
-    <div class="mesh-bg"></div>
-
     <nav>
-        <div class="logo">ZEETER<span class="highlight">.</span></div>
-        <div style="display: flex; gap: 2rem; align-items: center;">
-            <a href="#" style="color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600;">CATALOGUE</a>
-            <a href="#" class="btn-primary" style="padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.8rem; text-decoration: none; color: white;">BOOKING</a>
+        <div class="nav-logo">ZEETER <span>OLIVER</span></div>
+        <div class="nav-links" style="display: flex; gap: 1.5rem;">
+            <a href="#music" style="color: white; text-decoration: none; font-size: 0.8rem;">MUSIC</a>
+            <a href="#shop" style="background: var(--accent); padding: 0.5rem 1rem; border-radius: 6px; color: white; text-decoration: none; font-size: 0.8rem;">SHOP</a>
         </div>
     </nav>
 
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-badge">Independent Artist & Entrepreneur</div>
-            <h1>ZEETER <br><span class="highlight">OLIVER</span></h1>
-            <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 600px;">
-                Merging cutting-edge technology with minimalist premium sounds. Shaping the future of music through AI and authentic storytelling.
-            </p>
-            
-            <div class="btn-group">
-                <a href="#music" class="btn btn-primary">LISTEN NOW</a>
-                <a href="#about" class="btn btn-ghost">VIEW EPK</a>
+            <span class="badge">AFROFUSION & TECH ENTREPRENEUR</span>
+            <h1>Zeeter <span class="accent-text">Oliver</span></h1>
+            <p>Independent artist and producer merging traditional African rhythms with contemporary electronic production.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button class="btn-submit" style="width: auto; padding: 1rem 2rem;">Listen Now</button>
+                <button class="btn-submit" style="width: auto; padding: 1rem 2rem; background: transparent; border: 1px solid var(--border);">Get In Touch</button>
             </div>
         </div>
     </section>
 
+    <div class="stats-grid">
+        <div class="stat-card"><div class="stat-value">81.7K</div><div class="stat-label">Tiktok Likes</div></div>
+        <div class="stat-card"><div class="stat-value">17.4K</div><div class="stat-label">Tiktok Followers</div></div>
+        <div class="stat-card"><div class="stat-value">500K+</div><div class="stat-label">Audiomack Plays</div></div>
+    </div>
+
+    <section id="music" class="section-padding">
+        <h2 style="margin-bottom: 3rem; font-family: 'Space Grotesk';">Latest <span class="accent-text">Releases</span></h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img"><i class="fas fa-compact-disc"></i></div>
+                <div class="card-content">
+                    <h3>Blackrose EP</h3>
+                    <p style="color: var(--text-dim); margin-bottom: 1rem;">2024 • 5 Tracks</p>
+                    <ul style="list-style: none; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                        <li><span class="accent-text">01</span> Vibez</li>
+                        <li><span class="accent-text">02</span> Freedom</li>
+                        <li><span class="accent-text">03</span> Emergency</li>
+                    </ul>
+                    <div style="display: flex; gap: 1rem;">
+                        <i class="fab fa-spotify"></i> <i class="fab fa-apple"></i> <i class="fas fa-music"></i>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <section class="section-padding" style="background: #0f0f0f;">
+        <div class="contact-form">
+            <h2 style="margin-bottom: 2rem; text-align: center;">Work with <span class="accent-text">Zeeter</span></h2>
+            <form>
+                <input type="text" placeholder="Your Name">
+                <input type="email" placeholder="Email Address">
+                <select>
+                    <option>Select a Topic</option>
+                    <option>Booking</option>
+                    <option>PR Consultation</option>
+                    <option>Collaboration</option>
+                </select>
+                <textarea rows="5" placeholder="Tell us about your project..."></textarea>
+                <button class="btn-submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer style="padding: 4rem; text-align: center; border-top: 1px solid var(--border);">
+        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 ZEETER OLIVER. All Rights Reserved.</p>
+    </footer>
+
 </body>
-    </html>
-                
+</html>
