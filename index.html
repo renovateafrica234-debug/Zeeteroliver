@@ -4,120 +4,224 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zeeter Oliver | Official EPK</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ===== COLOR & DESIGN VARIABLES ===== */
         :root {
-            --bg: #0a0a0a;
-            --bg-card: #141414;
-            --accent: #e63946;
+            /* Exact Gradient Background Tones from UI */
+            --bg-deep: #0a0a0a; /* Main backdrop */
+            --tone-green: #083D2A; /* Upper-left atmosphere */
+            --tone-orange: #662E1A; /* Lower-right warm fade */
+            
+            /* UI Element Colors */
+            --accent: #e63946; /* Premium Red */
+            --accent-hover: #ff4757;
             --text-main: #ffffff;
-            --text-dim: rgba(255,255,255,0.6);
-            --border: rgba(255,255,255,0.1);
+            --text-dim: rgba(255,255,255,0.7);
+            --border: rgba(255,255,255,0.08);
+            
+            /* Exact Halo Ring Colors */
+            --halo-cyan: #2AF5E6; /* Green/Blue Ring */
+            --halo-copper: #F5A623; /* Orange/Gold Ring */
         }
 
+        /* ===== RESET & BASE STYLES ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.6; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        /* NAVIGATION */
+        /* ===== PREMIUM UI GRADIENT BACKGROUND ===== */
+        .page-bg {
+            position: fixed; inset: 0; z-index: -10;
+            background-color: var(--bg-deep);
+            overflow: hidden;
+        }
+        /* Top-Left Green/Teal Tone */
+        .page-bg::before {
+            content: ''; position: absolute;
+            width: 150vw; height: 150vh;
+            top: -50vh; left: -50vw;
+            background: radial-gradient(circle, var(--tone-green) 0%, transparent 70%);
+            opacity: 0.8;
+        }
+        /* Bottom-Right Copper/Orange Tone */
+        .page-bg::after {
+            content: ''; position: absolute;
+            width: 150vw; height: 150vh;
+            bottom: -50vh; right: -50vw;
+            background: radial-gradient(circle, var(--tone-orange) 0%, transparent 70%);
+            opacity: 0.6;
+        }
+
+        /* ===== NAVIGATION (MODERN, GLASS) ===== */
         nav {
             position: fixed; top: 0; width: 100%; padding: 1.5rem 5%;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(10,10,10,0.8); backdrop-filter: blur(15px); z-index: 1000;
-            border-bottom: 1px solid var(--border);
+            background: rgba(10,10,10,0.8); backdrop-filter: blur(20px);
+            z-index: 1000; border-bottom: 1px solid var(--border);
         }
-        .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; text-decoration: none; color: #fff; }
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+            font-size: 1.2rem; text-decoration: none; color: #fff;
+        }
         .nav-logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 600; }
+        .nav-cta {
+            background: var(--accent); padding: 0.6rem 1.2rem; border-radius: 8px;
+            color: white; text-decoration: none; font-weight: 700; font-size: 0.8rem;
+        }
+        .nav-cta:hover { background: var(--accent-hover); transform: translateY(-2px); }
 
-        /* HERO SECTION */
-        .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 5% 4rem; position: relative; }
-        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto; align-items: center; }
-        .hero-image-wrap { position: relative; border-radius: 24px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
-        .hero-image-wrap img { width: 100%; height: auto; display: block; object-fit: cover; }
+        /* ===== THE HERO SECTION (IMAGE + HALO) ===== */
+        .hero {
+            min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+            align-items: center; padding: 10rem 5% 5rem; max-width: 1400px; margin: 0 auto; gap: 4rem;
+        }
+
+        /* 1. ADVANCED CSS HALO RINGS EFFECT */
+        .hero-image-side { position: relative; display: flex; justify-content: center; }
+        .halo-rings-wrap {
+            position: absolute; width: 130%; height: 130%;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0.9;
+        }
+        /* Inner Cyan/Green Ring */
+        .ring-inner {
+            position: absolute; width: 80%; height: 80%;
+            border-radius: 50%;
+            border: 4px solid var(--halo-cyan);
+            filter: blur(8px) brightness(1.2);
+            animation: ringPulse 10s ease-in-out infinite alternate;
+        }
+        /* Outer Copper/Gold Ring */
+        .ring-outer {
+            position: absolute; width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 4px solid var(--halo-copper);
+            filter: blur(12px) brightness(1.1);
+            animation: ringPulse 10s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.03); opacity: 1; }
+        }
+
+        /* Seated Figure Image */
+        .profile-img-wrap {
+            position: relative; z-index: 10; border-radius: 24px;
+            overflow: hidden; border: 1px solid var(--border);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+        }
+        .profile-img-wrap img {
+            width: 100%; height: auto; display: block;
+            max-width: 500px; object-fit: cover;
+        }
+
+        /* ===== HERO CONTENT SECTION ===== */
+        .hero-content {
+            z-index: 20; position: relative;
+        }
+        .badge {
+            background: rgba(230, 57, 70, 0.15); color: var(--accent);
+            padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.7rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px;
+            margin-bottom: 2rem; display: inline-block;
+        }
         
-        .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1; margin-bottom: 1.5rem; letter-spacing: -2px; }
-        .hero p { color: var(--text-dim); font-size: 1.1rem; margin-bottom: 2.5rem; }
-
-        /* MUSIC GRID */
-        .section-padding { padding: 6rem 5%; max-width: 1200px; margin: 0 auto; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .card { background: var(--bg-card); border-radius: 20px; overflow: hidden; border: 1px solid var(--border); transition: 0.3s; }
-        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
-        .card-img { width: 100%; height: 300px; overflow: hidden; }
-        .card-img img { width: 100%; height: 100%; object-fit: cover; }
-        .card-content { padding: 2rem; }
+        /* 2. REPLACED HERO TITLE with her name */
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            font-weight: 700; line-height: 0.95;
+            letter-spacing: -3px; margin-bottom: 2rem;
+        }
+        .hero-subtitle {
+            font-size: 1.2rem; color: var(--text-dim);
+            max-width: 600px; margin-bottom: 3rem;
+        }
+        .hero-cta { display: flex; gap: 1.5rem; }
 
         /* BUTTONS */
-        .btn { padding: 1rem 2rem; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; }
+        .btn {
+            padding: 1.2rem 2.5rem; border-radius: 12px; font-weight: 700;
+            font-size: 0.9rem; text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex; align-items: center; gap: 0.8rem;
+        }
         .btn-primary { background: var(--accent); color: white; }
-        .btn-ghost { border: 1px solid var(--border); color: white; margin-left: 1rem; }
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(230,57,70,0.4);
+        }
+        .btn-ghost { border: 1px solid var(--border); color: white; }
+        .btn-ghost:hover { background: rgba(255,255,255,0.05); }
 
-        @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; text-align: center; } }
+        /* MOBILE OPTIMIZATION */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .hero-image-side { grid-row: 1; }
+            .badge { margin-top: 4rem; }
+            .hero-title { font-size: 3.5rem; }
+            .hero-cta { justify-content: center; }
+        }
     </style>
 </head>
 <body>
 
+    <div class="page-bg"></div>
+
     <nav>
         <a href="#" class="nav-logo">ZEETER <span>OLIVER</span></a>
-        <div style="display: flex; gap: 1.5rem;">
-            <a href="#music" style="color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600;">MUSIC</a>
-            <a href="#contact" style="color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600;">CONTACT</a>
-        </div>
+        <ul class="nav-links">
+            <li><a href="#music">MUSIC</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#press">PRESS</a></li>
+            <li><a href="#booking" class="nav-cta">BOOKING</a></li>
+        </ul>
     </nav>
 
     <section class="hero">
-        <div class="hero-grid">
-            <div class="hero-content">
-                <h1 id="hero-title">Zeeter <br><span style="color: var(--accent)">Oliver</span></h1>
-                <p>Independent Afrofusion songwriter & producer from Abuja, Nigeria. Merging traditional African rhythms with futuristic electronic production.</p>
-                <div class="hero-cta">
-                    <a href="#" class="btn btn-primary">LISTEN NOW</a>
-                    <a href="#contact" class="btn btn-ghost">GET IN TOUCH</a>
-                </div>
+        
+        <div class="hero-image-side">
+            <div class="halo-rings-wrap">
+                <div class="ring-inner"></div>
+                <div class="ring-outer"></div>
             </div>
-            <div class="hero-image-wrap">
-                <img id="main-profile-img" src="510488.jpg" alt="Zeeter Oliver">
+            <div class="profile-img-wrap">
+                <img src="510488.jpg" alt="Zeeter Oliver | Premium Afrofusion Artist">
             </div>
         </div>
-    </section>
 
-    <section id="music" class="section-padding">
-        <h2 style="margin-bottom: 3rem; font-family: 'Space Grotesk'; font-size: 2.5rem;">Latest <span style="color: var(--accent)">Releases</span></h2>
-        <div class="grid">
-            <div class="card">
-                <div class="card-img"><img src="510462.jpg" alt="Release 1"></div>
-                <div class="card-content">
-                    <h3>Blackrose EP</h3>
-                    <p style="color: var(--text-dim); margin-bottom: 1.5rem;">High-energy afrofusion project exploring the duality of modern Nigerian life.</p>
-                    <div style="display: flex; gap: 1rem; font-size: 1.2rem;">
-                        <i class="fab fa-spotify"></i> <i class="fab fa-apple"></i> <i class="fas fa-music"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img"><img src="510453.jpg" alt="Release 2"></div>
-                <div class="card-content">
-                    <h3>Vibez Only</h3>
-                    <p style="color: var(--text-dim); margin-bottom: 1.5rem;">A chilled, atmospheric journey through rhythmic textures and soulful melodies.</p>
-                    <div style="display: flex; gap: 1rem; font-size: 1.2rem;">
-                        <i class="fab fa-spotify"></i> <i class="fab fa-apple"></i> <i class="fas fa-music"></i>
-                    </div>
-                </div>
+        <div class="hero-content">
+            <div class="badge">AFROFUSION & TECH ENTREPRENEUR</div>
+            
+            <h1 class="hero-title">ZEETER <br><span style="color: var(--accent)">OLIVER</span></h1>
+            
+            <p class="hero-subtitle">
+                Independent artist and tech-driven producer merging traditional African rhythms with futuristic electronic production. Shaping the sound of tomorrow.
+            </p>
+            
+            <div class="hero-cta">
+                <a href="#music" class="btn btn-primary">
+                    <i class="fas fa-play"></i> LISTEN NOW
+                </a>
+                <a href="#contact" class="btn btn-ghost">
+                    GET IN TOUCH
+                </a>
             </div>
         </div>
+
     </section>
 
-    <script>
-        /* IMAGES CONFIGURATION - Change these filenames here to update the site instantly */
-        const siteImages = {
-            heroProfile: "510488.jpg",
-            musicCover1: "510462.jpg",
-            musicCover2: "510453.jpg",
-            musicCover3: "510459.jpg"
-        };
-
-        // This allows you to swap images dynamically in the future without touching HTML
-        document.getElementById('main-profile-img').src = siteImages.heroProfile;
-    </script>
 </body>
-</html>
+                                              </html>
+                
