@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zeeter Oliver | Official EPK</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -20,31 +20,28 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; height: 100%; }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-deep);
             color: var(--text-main);
-            overflow-x: hidden;
+            line-height: 1.6;
+            overflow-y: auto; /* Fixed: Allows scrolling now */
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ATMOSPHERIC BACKGROUND */
+        /* DUAL-TONE ATMOSPHERIC BACKGROUND */
         .page-bg {
             position: fixed; inset: 0; z-index: -10;
             background-color: var(--bg-deep);
         }
         .page-bg::before {
-            content: ''; position: absolute; width: 150vw; height: 150vh;
-            top: -50vh; left: -50vw;
-            background: radial-gradient(circle, var(--tone-green) 0%, transparent 70%);
-            opacity: 0.8;
+            content: ''; position: absolute; width: 150vw; height: 150vh; top: -50vh; left: -50vw;
+            background: radial-gradient(circle, var(--tone-green) 0%, transparent 70%); opacity: 0.7;
         }
         .page-bg::after {
-            content: ''; position: absolute; width: 150vw; height: 150vh;
-            bottom: -50vh; right: -50vw;
-            background: radial-gradient(circle, var(--tone-orange) 0%, transparent 70%);
-            opacity: 0.6;
+            content: ''; position: absolute; width: 150vw; height: 150vh; bottom: -50vh; right: -50vw;
+            background: radial-gradient(circle, var(--tone-orange) 0%, transparent 70%); opacity: 0.5;
         }
 
         /* NAVIGATION */
@@ -56,75 +53,56 @@
         }
         .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; text-decoration: none; color: #fff; }
         .nav-logo span { color: var(--accent); }
-        .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; }
 
-        /* HERO SECTION */
-        .hero {
-            min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
-            align-items: center; padding: 8rem 5% 5rem; max-width: 1400px; margin: 0 auto; gap: 4rem;
-        }
+        /* SECTIONS */
+        section { padding: 8rem 5%; max-width: 1300px; margin: 0 auto; position: relative; }
+        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; margin-bottom: 3rem; letter-spacing: -2px; }
 
-        /* ADVANCED HALO RINGS */
+        /* HERO BLOCK: Transparent Image + Animated Halo */
+        .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; }
         .hero-image-side { position: relative; display: flex; justify-content: center; }
         .halo-rings {
-            position: absolute; width: 120%; height: 120%;
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            pointer-events: none;
+            position: absolute; width: 120%; height: 120%; top: 50%; left: 50%; transform: translate(-50%, -50%);
         }
         .ring {
-            position: absolute; inset: 0; border-radius: 50%; border: 2px solid transparent;
-            animation: ringRotate 20s linear infinite;
+            position: absolute; inset: 0; border-radius: 50%; border: 3px solid transparent; animation: rotate 15s linear infinite;
         }
-        .ring-1 { border-top: 3px solid #2AF5E6; filter: blur(4px) drop-shadow(0 0 10px #2AF5E6); }
-        .ring-2 { border-bottom: 3px solid #F5A623; filter: blur(6px) drop-shadow(0 0 10px #F5A623); transform: scale(1.15); animation-direction: reverse; }
+        .ring-cyan { border-top: 4px solid #2AF5E6; filter: blur(8px) drop-shadow(0 0 15px #2AF5E6); }
+        .ring-copper { border-bottom: 4px solid #F5A623; filter: blur(12px) drop-shadow(0 0 15px #F5A623); transform: scale(1.1); animation-direction: reverse; }
+        
+        .profile-img { position: relative; z-index: 10; width: 100%; max-width: 500px; display: block; filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5)); }
 
-        @keyframes ringRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        .profile-img-wrap {
-            position: relative; z-index: 10; border-radius: 24px;
-            overflow: hidden; border: 1px solid var(--glass-stroke);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-        }
-        .profile-img-wrap img { width: 100%; height: auto; display: block; max-width: 480px; }
-
-        /* TYPOGRAPHY & BUTTONS */
-        .hero-title {
-            font-family: 'Space Grotesk', sans-serif; font-size: clamp(3.5rem, 8vw, 6.5rem);
-            font-weight: 700; line-height: 0.95; letter-spacing: -3px; margin-bottom: 2rem;
-        }
-        .hero-subtitle { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 3rem; max-width: 500px; }
-        .btn {
-            padding: 1.2rem 2.5rem; border-radius: 12px; font-weight: 700;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 0.8rem;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn-primary { background: var(--accent); color: white; }
-        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(230, 57, 70, 0.4); }
-        .btn-ghost { border: 1px solid var(--border); color: white; margin-left: 1rem; }
-
-        /* GLASSMORPHISM MUSIC CARDS */
-        .section-padding { padding: 6rem 5%; max-width: 1300px; margin: 0 auto; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        /* MUSIC BLOCKS (GLASSMORPHISM) */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
         .card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border-radius: 24px;
-            border: 1px solid var(--glass-stroke);
-            padding: 1.5rem;
-            transition: 0.4s;
+            background: var(--glass); backdrop-filter: blur(15px);
+            border-radius: 24px; border: 1px solid var(--glass-stroke);
+            padding: 2rem; transition: 0.4s;
         }
-        .card:hover { border-color: var(--accent); transform: translateY(-10px); background: rgba(255,255,255,0.05); }
-        .card-img { border-radius: 16px; overflow: hidden; margin-bottom: 1.5rem; border: 1px solid var(--glass-stroke); height: 280px; }
-        .card-img img { width: 100%; height: 100%; object-fit: cover; }
-        .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .card:hover { border-color: var(--accent); transform: translateY(-10px); }
+        .card img { width: 100%; border-radius: 16px; margin-bottom: 1.5rem; }
 
-        @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; text-align: center; }
-            .hero-image-side { grid-row: 1; }
-            .btn-ghost { margin-left: 0; margin-top: 1rem; }
-            .hero-cta { display: flex; flex-direction: column; }
+        /* STATS BLOCK */
+        .stats-row { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; padding: 4rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .stat-item { text-align: center; }
+        .stat-val { display: block; font-size: 3rem; font-weight: 900; color: var(--accent); font-family: 'Space Grotesk'; }
+        .stat-lab { font-size: 0.8rem; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; }
+
+        /* U.G.L.Y COUNTDOWN BLOCK */
+        .ugly-block { 
+            background: linear-gradient(135deg, #1a1a1a, #000); padding: 4rem; 
+            border-radius: 30px; border: 1px solid var(--accent); text-align: center;
         }
+        .ugly-date { color: var(--accent); font-weight: 900; font-size: 2rem; margin-top: 1rem; display: block; }
+
+        /* BUTTONS */
+        .btn { padding: 1.2rem 2.5rem; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-block; transition: 0.3s; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-shop { background: white; color: black; margin-top: 2rem; }
+
+        @media (max-width: 900px) { .hero { grid-template-columns: 1fr; text-align: center; } .hero-image-side { grid-row: 1; } }
     </style>
 </head>
 <body>
@@ -133,55 +111,75 @@
 
     <nav>
         <a href="#" class="nav-logo">ZEETER <span>OLIVER</span></a>
-        <ul class="nav-links">
-            <li><a href="#music">MUSIC</a></li>
-            <li><a href="#contact">CONTACT</a></li>
-            <li><a href="#booking" style="background: var(--accent); padding: 0.6rem 1.2rem; border-radius: 8px;">BOOKING</a></li>
-        </ul>
+        <div style="display: flex; gap: 2rem;">
+            <a href="#music" style="color:white; text-decoration:none; font-size:0.8rem; font-weight:700;">MUSIC</a>
+            <a href="#shop" style="color:white; text-decoration:none; font-size:0.8rem; font-weight:700;">SHOP</a>
+        </div>
     </nav>
 
     <section class="hero">
         <div class="hero-image-side">
             <div class="halo-rings">
-                <div class="ring ring-1"></div>
-                <div class="ring ring-2"></div>
+                <div class="ring ring-cyan"></div>
+                <div class="ring ring-copper"></div>
             </div>
-            <div class="profile-img-wrap">
-                <img src="510488.jpg" alt="Zeeter Oliver">
-            </div>
+            <img src="510488.png" class="profile-img" alt="Zeeter Oliver">
         </div>
-
         <div class="hero-content">
-            <h1 class="hero-title">ZEETER <br><span style="color: var(--accent)">OLIVER</span></h1>
-            <p class="hero-subtitle">Independent artist and producer merging traditional African rhythms with futuristic electronic soundscapes.</p>
-            <div class="hero-cta">
-                <a href="#music" class="btn btn-primary"><i class="fas fa-play"></i> LISTEN NOW</a>
-                <a href="#contact" class="btn btn-ghost">GET IN TOUCH</a>
-            </div>
+            <h1 style="font-family: 'Space Grotesk'; font-size: 5rem; line-height: 0.95;">ZEETER<br><span style="color: var(--accent)">OLIVER</span></h1>
+            <p style="margin: 2rem 0; color: var(--text-dim); font-size: 1.2rem;">Afrofusion Pioneer. Sound Architect. Minimalist Premium Enthusiast.</p>
+            <a href="#music" class="btn btn-primary">EXPLORE SOUND</a>
         </div>
     </section>
 
-    <section id="music" class="section-padding">
-        <h2 style="margin-bottom: 3rem; font-family: 'Space Grotesk'; font-size: 2.5rem;">Latest <span style="color: var(--accent)">Releases</span></h2>
+    <section>
+        <div class="stats-row">
+            <div class="stat-item"><span class="stat-val">17.4K</span><span class="stat-lab">Followers</span></div>
+            <div class="stat-item"><span class="stat-val">81.7K</span><span class="stat-lab">Likes</span></div>
+            <div class="stat-item"><span class="stat-val">500K+</span><span class="stat-lab">Total Plays</span></div>
+        </div>
+    </section>
+
+    <section id="music">
+        <h2 class="section-title">Latest <span style="color: var(--accent)">Projects</span></h2>
         <div class="grid">
             <div class="card">
-                <div class="card-img"><img src="510462.jpg" alt="Blackrose"></div>
+                <img src="510462.jpg" alt="Blackrose">
                 <h3>Blackrose EP</h3>
-                <p style="color: var(--text-dim); margin-bottom: 1.5rem;">The defining sound of modern Afrofusion.</p>
-                <div style="display: flex; gap: 1rem; font-size: 1.2rem; color: var(--accent);">
-                    <i class="fab fa-spotify"></i> <i class="fab fa-apple"></i> <i class="fas fa-music"></i>
-                </div>
+                <p>Nostalgia meets futuristic Afro-rhythms.</p>
+                <a href="#" style="color: var(--accent); text-decoration:none; font-weight:700; margin-top:1rem; display:block;">STREAM NOW</a>
             </div>
             <div class="card">
-                <div class="card-img"><img src="510453.jpg" alt="Vibez"></div>
-                <h3>Vibez Only</h3>
-                <p style="color: var(--text-dim); margin-bottom: 1.5rem;">Soulful melodies and rhythmic textures.</p>
-                <div style="display: flex; gap: 1rem; font-size: 1.2rem; color: var(--accent);">
-                    <i class="fab fa-spotify"></i> <i class="fab fa-apple"></i> <i class="fas fa-music"></i>
-                </div>
+                <img src="510453.jpg" alt="Nostalgia">
+                <h3>Nostalgia Album</h3>
+                <p>A journey through timeless soundscapes.</p>
+                <a href="#" style="color: var(--accent); text-decoration:none; font-weight:700; margin-top:1rem; display:block;">BUY DIGITAL</a>
             </div>
         </div>
     </section>
+
+    <section id="shop" style="text-align: center;">
+        <div class="card" style="padding: 5rem; background: rgba(255,255,255,0.02);">
+            <h2 class="section-title">Exclusive <span style="color: var(--accent)">Merch</span></h2>
+            <p>Premium minimalist apparel and limited edition vinyl.</p>
+            <a href="#" class="btn btn-shop">VISIT STORE</a>
+        </div>
+    </section>
+
+    <section>
+        <div class="ugly-block">
+            <h2 style="font-family: 'Space Grotesk'; font-size: 4rem;">U.G.L.Y EP</h2>
+            <p>THE NEXT CHAPTER ARRIVES</p>
+            <span class="ugly-date">MAY 29, 2026</span>
+            <div style="margin-top: 2rem;">
+                <a href="#" class="btn btn-primary">PRE-SAVE NOW</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 4rem; opacity: 0.4; font-size: 0.8rem;">
+        &copy; 2026 ZEETER OLIVER | BUILT FOR THE FUTURE
+    </footer>
 
 </body>
 </html>
