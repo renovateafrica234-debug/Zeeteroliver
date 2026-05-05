@@ -4,183 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zeeter Oliver | Official EPK</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #0a0a0a;
-            --tone-green: #083D2A; 
-            --tone-orange: #662E1A; 
+            --bg: #0a0a0a;
             --accent: #e63946;
-            --text-main: #ffffff;
-            --text-dim: rgba(255,255,255,0.7);
-            --border: rgba(255,255,255,0.1);
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-stroke: rgba(255, 255, 255, 0.1);
+            --glass: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; height: 100%; }
-        body {
+        body { 
+            background: var(--bg); 
+            color: white; 
             font-family: 'Inter', sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-main);
+            overflow-x: hidden;
             line-height: 1.6;
-            overflow-y: auto; /* Fixed: Allows scrolling now */
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* DUAL-TONE ATMOSPHERIC BACKGROUND */
-        .page-bg {
-            position: fixed; inset: 0; z-index: -10;
-            background-color: var(--bg-deep);
-        }
-        .page-bg::before {
-            content: ''; position: absolute; width: 150vw; height: 150vh; top: -50vh; left: -50vw;
-            background: radial-gradient(circle, var(--tone-green) 0%, transparent 70%); opacity: 0.7;
-        }
-        .page-bg::after {
-            content: ''; position: absolute; width: 150vw; height: 150vh; bottom: -50vh; right: -50vw;
-            background: radial-gradient(circle, var(--tone-orange) 0%, transparent 70%); opacity: 0.5;
+        /* ATMOSPHERIC DUAL-TONE BACKGROUND */
+        .gradient-bg {
+            position: fixed; inset: 0; z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 15%, #083D2A 0%, transparent 60%),
+                radial-gradient(circle at 85% 85%, #662E1A 0%, transparent 60%),
+                #0a0a0a;
         }
 
-        /* NAVIGATION */
-        nav {
-            position: fixed; top: 0; width: 100%; padding: 1.5rem 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(10,10,10,0.7); backdrop-filter: blur(20px);
-            z-index: 1000; border-bottom: 1px solid var(--border);
-        }
-        .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; text-decoration: none; color: #fff; }
-        .nav-logo span { color: var(--accent); }
-
-        /* SECTIONS */
-        section { padding: 8rem 5%; max-width: 1300px; margin: 0 auto; position: relative; }
-        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; margin-bottom: 3rem; letter-spacing: -2px; }
-
-        /* HERO BLOCK: Transparent Image + Animated Halo */
-        .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; }
-        .hero-image-side { position: relative; display: flex; justify-content: center; }
-        .halo-rings {
-            position: absolute; width: 120%; height: 120%; top: 50%; left: 50%; transform: translate(-50%, -50%);
-        }
-        .ring {
-            position: absolute; inset: 0; border-radius: 50%; border: 3px solid transparent; animation: rotate 15s linear infinite;
-        }
-        .ring-cyan { border-top: 4px solid #2AF5E6; filter: blur(8px) drop-shadow(0 0 15px #2AF5E6); }
-        .ring-copper { border-bottom: 4px solid #F5A623; filter: blur(12px) drop-shadow(0 0 15px #F5A623); transform: scale(1.1); animation-direction: reverse; }
+        nav { position: fixed; top: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; z-index: 100; backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); }
         
-        .profile-img { position: relative; z-index: 10; width: 100%; max-width: 500px; display: block; filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5)); }
+        section { padding: 120px 5% 60px; max-width: 1300px; margin: 0 auto; }
+
+        /* HERO SECTION */
+        .hero { display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 100vh; gap: 60px; }
+        .hero-text h1 { font-family: 'Space Grotesk'; font-size: clamp(3.5rem, 9vw, 6.5rem); line-height: 0.9; letter-spacing: -3px; }
+        
+        /* IMAGE & HALO */
+        .img-container { position: relative; width: 100%; display: flex; justify-content: center; }
+        .halo-wrap { position: absolute; width: 120%; height: 120%; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+        .ring { position: absolute; inset: 0; border-radius: 50%; border: 3px solid transparent; animation: rotate 20s linear infinite; }
+        .ring-1 { border-top: 4px solid #2AF5E6; filter: blur(6px) drop-shadow(0 0 15px #2AF5E6); }
+        .ring-2 { border-bottom: 4px solid #F5A623; filter: blur(10px) drop-shadow(0 0 15px #F5A623); transform: scale(1.1); animation-direction: reverse; }
+        
+        .hero-img { width: 100%; max-width: 500px; position: relative; z-index: 5; filter: drop-shadow(0 25px 50px rgba(0,0,0,0.8)); }
 
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* MUSIC BLOCKS (GLASSMORPHISM) */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
-        .card {
-            background: var(--glass); backdrop-filter: blur(15px);
-            border-radius: 24px; border: 1px solid var(--glass-stroke);
-            padding: 2rem; transition: 0.4s;
-        }
-        .card:hover { border-color: var(--accent); transform: translateY(-10px); }
-        .card img { width: 100%; border-radius: 16px; margin-bottom: 1.5rem; }
+        /* BLOCKS & CARDS */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .card { background: var(--glass); border: 1px solid var(--border); padding: 30px; border-radius: 24px; backdrop-filter: blur(20px); transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .card img { width: 100%; border-radius: 16px; margin-bottom: 20px; }
 
-        /* STATS BLOCK */
-        .stats-row { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; padding: 4rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .btn { padding: 16px 32px; background: var(--accent); color: white; text-decoration: none; border-radius: 12px; font-weight: 800; display: inline-block; margin-top: 25px; transition: 0.3s; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); }
+
+        /* STATS */
+        .stats-row { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; padding: 60px 0; border-top: 1px solid var(--border); }
         .stat-item { text-align: center; }
-        .stat-val { display: block; font-size: 3rem; font-weight: 900; color: var(--accent); font-family: 'Space Grotesk'; }
-        .stat-lab { font-size: 0.8rem; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; }
-
-        /* U.G.L.Y COUNTDOWN BLOCK */
-        .ugly-block { 
-            background: linear-gradient(135deg, #1a1a1a, #000); padding: 4rem; 
-            border-radius: 30px; border: 1px solid var(--accent); text-align: center;
-        }
-        .ugly-date { color: var(--accent); font-weight: 900; font-size: 2rem; margin-top: 1rem; display: block; }
-
-        /* BUTTONS */
-        .btn { padding: 1.2rem 2.5rem; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-block; transition: 0.3s; }
-        .btn-primary { background: var(--accent); color: white; }
-        .btn-shop { background: white; color: black; margin-top: 2rem; }
+        .stat-val { display: block; font-size: 3.5rem; font-weight: 900; color: var(--accent); font-family: 'Space Grotesk'; }
 
         @media (max-width: 900px) { .hero { grid-template-columns: 1fr; text-align: center; } .hero-image-side { grid-row: 1; } }
     </style>
 </head>
 <body>
-
-    <div class="page-bg"></div>
+    <div class="gradient-bg"></div>
 
     <nav>
-        <a href="#" class="nav-logo">ZEETER <span>OLIVER</span></a>
-        <div style="display: flex; gap: 2rem;">
-            <a href="#music" style="color:white; text-decoration:none; font-size:0.8rem; font-weight:700;">MUSIC</a>
-            <a href="#shop" style="color:white; text-decoration:none; font-size:0.8rem; font-weight:700;">SHOP</a>
+        <div style="font-family: 'Space Grotesk'; font-weight: bold; font-size: 1.2rem;">ZEETER <span style="color:var(--accent)">OLIVER</span></div>
+        <div style="display: flex; gap: 25px; align-items: center;">
+            <a href="#music" style="color:white; text-decoration:none; font-weight: 600; font-size: 0.8rem;">MUSIC</a>
+            <a href="#shop" style="color:white; text-decoration:none; font-weight: 600; font-size: 0.8rem;">SHOP</a>
         </div>
     </nav>
 
     <section class="hero">
-        <div class="hero-image-side">
-            <div class="halo-rings">
-                <div class="ring ring-cyan"></div>
-                <div class="ring ring-copper"></div>
-            </div>
-            <img src="510488.png" class="profile-img" alt="Zeeter Oliver">
+        <div class="hero-text">
+            <h1>ZEETER <br><span style="color: var(--accent)">OLIVER</span></h1>
+            <p style="margin-top: 25px; font-size: 1.2rem; opacity: 0.8; max-width: 500px;">Afrofusion Pioneer & Tech Architect. Merging cultural rhythms with futuristic soundscapes.</p>
+            <a href="#music" class="btn">DISCOVER SOUND</a>
         </div>
-        <div class="hero-content">
-            <h1 style="font-family: 'Space Grotesk'; font-size: 5rem; line-height: 0.95;">ZEETER<br><span style="color: var(--accent)">OLIVER</span></h1>
-            <p style="margin: 2rem 0; color: var(--text-dim); font-size: 1.2rem;">Afrofusion Pioneer. Sound Architect. Minimalist Premium Enthusiast.</p>
-            <a href="#music" class="btn btn-primary">EXPLORE SOUND</a>
+        <div class="img-container">
+            <div class="halo-wrap">
+                <div class="ring ring-1"></div>
+                <div class="ring ring-2"></div>
+            </div>
+            <img src="510927.jpg" class="hero-img" alt="Zeeter Oliver">
         </div>
     </section>
 
     <section>
         <div class="stats-row">
-            <div class="stat-item"><span class="stat-val">17.4K</span><span class="stat-lab">Followers</span></div>
-            <div class="stat-item"><span class="stat-val">81.7K</span><span class="stat-lab">Likes</span></div>
-            <div class="stat-item"><span class="stat-val">500K+</span><span class="stat-lab">Total Plays</span></div>
+            <div class="stat-item"><span class="stat-val">17.4K</span><p>Followers</p></div>
+            <div class="stat-item"><span class="stat-val">81.7K</span><p>Likes</p></div>
+            <div class="stat-item"><span class="stat-val">500K+</span><p>Total Plays</p></div>
         </div>
     </section>
 
     <section id="music">
-        <h2 class="section-title">Latest <span style="color: var(--accent)">Projects</span></h2>
+        <h2 style="margin-bottom: 40px; font-family: 'Space Grotesk'; font-size: 2.5rem;">Major <span style="color: var(--accent)">Projects</span></h2>
         <div class="grid">
             <div class="card">
                 <img src="510462.jpg" alt="Blackrose">
                 <h3>Blackrose EP</h3>
-                <p>Nostalgia meets futuristic Afro-rhythms.</p>
-                <a href="#" style="color: var(--accent); text-decoration:none; font-weight:700; margin-top:1rem; display:block;">STREAM NOW</a>
+                <p style="opacity: 0.7;">The evolution of Afrofusion.</p>
+                <a href="#" style="color:var(--accent); text-decoration:none; font-weight:bold; display:block; margin-top:15px;">STREAM NOW</a>
             </div>
             <div class="card">
                 <img src="510453.jpg" alt="Nostalgia">
                 <h3>Nostalgia Album</h3>
-                <p>A journey through timeless soundscapes.</p>
-                <a href="#" style="color: var(--accent); text-decoration:none; font-weight:700; margin-top:1rem; display:block;">BUY DIGITAL</a>
+                <p style="opacity: 0.7;">A journey through rhythmic textures.</p>
+                <a href="#" style="color:var(--accent); text-decoration:none; font-weight:bold; display:block; margin-top:15px;">BUY DIGITAL</a>
             </div>
         </div>
     </section>
 
-    <section id="shop" style="text-align: center;">
-        <div class="card" style="padding: 5rem; background: rgba(255,255,255,0.02);">
-            <h2 class="section-title">Exclusive <span style="color: var(--accent)">Merch</span></h2>
-            <p>Premium minimalist apparel and limited edition vinyl.</p>
-            <a href="#" class="btn btn-shop">VISIT STORE</a>
+    <section style="text-align: center;">
+        <div class="card" style="border: 2px solid var(--accent); padding: 60px 20px;">
+            <img src="510508.jpg" alt="U.G.L.Y EP" style="max-width: 300px; margin: 0 auto 30px;">
+            <h2 style="font-family: 'Space Grotesk'; font-size: 3.5rem;">U.G.L.Y EP</h2>
+            <p style="color: var(--accent); font-weight: 900; font-size: 1.8rem; margin: 10px 0;">MAY 29, 2026</p>
+            <p>PRE-SAVE THE NEXT CHAPTER</p>
+            <a href="#" class="btn">PRE-SAVE ON SPOTIFY</a>
         </div>
     </section>
 
-    <section>
-        <div class="ugly-block">
-            <h2 style="font-family: 'Space Grotesk'; font-size: 4rem;">U.G.L.Y EP</h2>
-            <p>THE NEXT CHAPTER ARRIVES</p>
-            <span class="ugly-date">MAY 29, 2026</span>
-            <div style="margin-top: 2rem;">
-                <a href="#" class="btn btn-primary">PRE-SAVE NOW</a>
-            </div>
-        </div>
-    </section>
-
-    <footer style="text-align: center; padding: 4rem; opacity: 0.4; font-size: 0.8rem;">
-        &copy; 2026 ZEETER OLIVER | BUILT FOR THE FUTURE
+    <footer style="padding: 60px; text-align: center; opacity: 0.4; font-size: 0.7rem; letter-spacing: 2px;">
+        &copy; 2026 ZEETER OLIVER | ALL RIGHTS RESERVED
     </footer>
 
 </body>
-                    </html>
-                                                                                        
+    </html>
+    
